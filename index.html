@@ -1,177 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RiverScape Security</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             background-color: #000;
             color: #fff;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-image: url('images/backgrounds/back1.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding-top: 70px;
+            display: flex; /* Added to enable flexbox layout */
+            flex-direction: column; /* Stack items vertically */
+            min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
         }
-
         .navbar {
             background-color: #222;
         }
-
-        .navbar-brand,
-        .navbar-nav .nav-link {
-            color: #ffa500 !important;
+        .nav-link {
+            color: #ddd !important;
         }
-
+        .nav-link:hover {
+            color: #fff !important;
+        }
         .btn-primary {
-            background-color: #ffa500;
-            border-color: #ffa500;
-            color: #000;
+            background-color: #ff7f50;
+            border-color: #ff7f50;
         }
-
         .btn-primary:hover {
-            background-color: #ff9000;
-            border-color: #ff9000;
+            background-color: #ff6347;
+            border-color: #ff6347;
         }
-
-        .hero-section {
-            background-image: url('images/background.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .card-title {
+            color: #fff;
+        }
+        .card-text {
+            color: #ddd;
+        }
+        footer {
+            background-color: #222;
+            padding: 1.5rem 0;
             text-align: center;
+            color: #ddd;
+            margin-top: auto; /* Pushes the footer to the bottom */
         }
-
-        .hero-content {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+        .dropdown-menu {
+            background-color: #222;
+            border: 1px solid #444;
+        }
+        .dropdown-item {
+            color: #ddd;
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #444;
+            color: #fff;
+        }
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .navbar-toggler:hover,
+        .navbar-toggler:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .section-icon {
+            font-size: 3rem;
+            color: #ff8c00;
+            margin-bottom: 1.5rem;
             display: inline-block;
         }
 
-        .feature-section {
-            padding: 50px 0;
-            background-color: #111;
+        a {
+            color: #ddd !important;
         }
 
-        .feature-icon {
-            color: #ffa500;
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        .footer {
-            background-color: #222;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .navbar-brand img {
-            max-height: 100px;
-            margin-right: 15px;
-            vertical-align: middle;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-brand .company-name {
-            font-size: 1.2rem;
-            color: #ffa500;
-        }
-
-        .footer .logo-footer {
-            max-height: 50px;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
-
 <body>
 
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand">
-                <img src="images/company-logo.jpg" alt="RiverScape Security Logo">
-                <span class="company-name">RiverScape Security</span>
+            <a class="navbar-brand" href="#">
+                <img src="images/company-logo.jpg" alt="RiverScape Security Logo" height="40" class="d-inline-block align-top">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            RiverScape Security Oy
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/riverscapesecurity">Our Github</a>
-                    </li>
-<!--                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
+                        <a class="nav-link active" aria-current="page" href="#home" data-lang="home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="#services" data-lang="services">Services</a>
                     </li>
--->
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/riverscapesecurity" target="_blank">Github</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-lang="language">
+                            Language
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">🇬🇧 English</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('fi')">🇫🇮 Finnish</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Let's stretch some limits!</h1>
-            <p>Safeguarding your precious assets with innovative hacking technology.</p>
-            <p>Tarjoamme kaikki palvelumme myös puhtaasti Suomeksi, sekä puhuen että kirjoittaen. 🇫🇮</p>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="text-center mt-5 mb-4" data-lang="hero_title"></h1>
+                <p class="lead text-center mb-5" data-lang="hero_subtitle">hero_subtitle</p>
+            </div>
         </div>
-    </section>
-
-    <section class="feature-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <i class="fas fa-solid fa-microchip feature-icon"></i>
-                        <h2>Experience</h2>
-                        <p>Focusing in mobile, IoT and web exploits. We also love physical security, old or new, anything goes.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-secret section-icon"></i>
+                        <h5 class="card-title" data-lang="service_1_title">service_1_title</h5>
+                        <p class="card-text" data-lang="service_1_desc">service_1_desc</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <i class="fas fa-otter feature-icon"></i>
-                        <h2>Expert Team</h2>
-                        <p>Our highly skilled hackers are dedicated to your safety and security. We do live presentations if needed.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-person-chalkboard section-icon"></i>
+                        <h5 class="card-title" data-lang="service_2_title">service_2_title</h5>
+                        <p class="card-text" data-lang="service_2_desc">service_2_desc</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <i class="fas fa-user-secret feature-icon"></i>
-                        <h2>Hacking Mindset</h2>
-                        <p>Let's stretch some limits in any domain. We've been doing this a lot with great results.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div
+                     class="card-body text-center">
+                        <i class="fas fa-chalkboard-user section-icon"></i>
+                        <h5 class="card-title" data-lang="service_3_title">service_3_title</h5>
+                        <p class="card-text" data-lang="service_3_desc">service_3_desc</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <footer class="footer">
+    </div>
+    
+    <footer class="bg-dark text-center py-3">
         <div class="container">
-            <img src="images/company-logo.jpg" alt="RiverScape Security Logo" class="logo-footer">
-            <p><span style="color:orange">RiverScape Security</span> &copy; 2025</p>
-            <p><span style="color:orange">Y-Tunnus / VAT ID: 3498124-9</p>
-                <p><span style="color:orange">info@riverscapesecurity.fi</p>
+            <p>&copy; 2024-2025 RiverScape Security. All rights reserved.</p>
+            <p><a href="mailto:info@riverscapesecurity.fi">info@riverscapesecurity.fi</a></p>
+            <p data-lang="vat_desc"></p>            
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLanguage('en'); // Default language
+        });
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+        const translations = {
+            en: {
+                home: 'Home',
+                services: 'Services',
+                language: '🇬🇧 Language',
+                hero_title: 'We Speak Hacker. We Build Security.',
+                hero_subtitle: 'Understanding the Attack, Mastering the Defense.',
+                services_title: 'Our Services',
+                service_1_title: 'Offensive Testing',
+                service_1_desc: "Threats to mobile, IoT, and web are constantly evolving. Don't leave your critical platforms vulnerable. Our expert hacking services proactively identify weaknesses in your mobile apps, IoT-devices, and web applications before attackers exploit them. Gain actionable insights and strengthen your security posture. Let's secure your digital ecosystem!",
+                service_2_title: 'Physical Security',
+                service_2_desc: "Think your physical security is impenetrable? Think again. Our specialized physical hacking services go beyond digital threats, identifying vulnerabilities in your locks, buildings, and access control systems before a real-world breach occurs. We expose weaknesses you didn't know existed, providing actionable insights to strengthen your defenses. Let's find out together!",
+                service_3_title: 'Training / Presentations',
+                service_3_desc: "Want to empower your team with the latest knowledge and skills? Our dynamic trainings and engaging live presentations deliver impactful learning experiences that drive real results. From industry best practices to cutting-edge techniques, we bring expertise directly to you, fostering growth and boosting performance. Ready to invest in your team's potential?",
+                vat_desc: "VAT ID: FI34981249"
+            },
+            fi: {
+                home: 'Koti',
+                services: 'Palvelut',
+                language: '🇫🇮 Kieli',
+                hero_title: 'Hakkerointi on yhtäkuin Me. Rakennamme Turvallisuutta.',
+                hero_subtitle: 'Hyökkäyksen Ymmärtäminen, Puolustuksen Hallitseminen.',
+                contact_us: 'Ota yhteyttä',
+                services_title: 'Palveluitamme',
+                service_1_title: 'Hyökkäys Testaus',
+                service_1_desc: "Mobiili-, IoT- ja verkkouhat kehittyvät jatkuvasti. Älä jätä kriittisiä alustojasi haavoittuviksi. Asiantuntevat hakkerointipalvelumme tunnistavat ennakoivasti mobiilisovellustesi, IoT-laitteiden ja verkkosovellusten heikkoudet ennen kuin hyökkääjät käyttävät niitä hyväkseen. Hanki käyttökelpoisia oivalluksia ja vahvista tietoturvaasentasi. Eiköhän suojella teidän digitaalinen ekosysteemi!",
+                service_2_title: 'Fyysinen turvallisuus',
+                service_2_desc: 'Luuletko, että fyysinen turvallisuutesi on läpäisemätön? Mieti uudelleen. Erikoistuneet fyysiset hakkerointipalvelumme menevät digitaalisia uhkia pidemmälle ja tunnistavat haavoittuvuuksia lukoissasi, rakennuksissasi ja kulunvalvontajärjestelmissäsi ennen todellisen murron tapahtumista. Paljastamme heikkouksia, joiden olemassaolosta et tiennyt, ja tarjoamme käyttökelpoisia oivalluksia puolustustesi vahvistamiseen. Otetaan yhdessä selvää!',
+                service_3_title: 'Koulutukset / Esitykset',
+                service_3_desc: 'Haluatko antaa tiimillesi uusimmat tiedot ja taidot? Dynaamiset koulutuksemme ja mukaansatempaavat live-esityksemme tarjoavat vaikuttavia oppimiskokemuksia, jotka johtavat todellisiin tuloksiin. Toimialan parhaista käytännöistä huipputekniikoihin tuomme asiantuntemuksen suoraan sinulle, mikä edistää kasvua ja tehostaa suorituskykyä. Oletko valmis investoimaan tiimisi potentiaaliin?',
+                vat_desc: "Y-Tunnus: 3498124-9"
+            }
+        };
+
+        function loadLanguage(lang) {
+            document.querySelectorAll('[data-lang]').forEach(item => {
+                const key = item.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) {
+                    item.textContent = translations[lang][key];
+                }
+            });
+            document.documentElement.setAttribute('lang', lang);
+        }
+
+        function changeLanguage(lang) {
+            loadLanguage(lang);
+        }
+    </script>
 </body>
-
 </html>
