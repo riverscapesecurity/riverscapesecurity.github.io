@@ -1,208 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RiverScape Security – Ethical hacking, offensive testing, physical security and training based in Finland.">
+    <meta name="description"
+        content="RiverScape Security – Ethical hacking, offensive testing, physical security and training based in Finland.">
     <title>RiverScape Security</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            background-image: url('images/backgrounds/back1.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            padding-top: 70px;
-            display: flex; /* Added to enable flexbox layout */
-            flex-direction: column; /* Stack items vertically */
-            min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
-        }
-        .navbar {
-            background-color: #222;
-        }
-        .nav-link {
-            color: #ddd !important;
-        }
-        .nav-link:hover {
-            color: #fff !important;
-        }
-        .btn-primary {
-            background-color: #ff7f50;
-            border-color: #ff7f50;
-        }
-        .btn-primary:hover {
-            background-color: #ff6347;
-            border-color: #ff6347;
-        }
-        .card {
-            background-color: #1a1a1a;
-            border: 1px solid #333;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-        .card-title {
-            color: #fff;
-        }
-        .card-text {
-            color: #ddd;
-        }
-        footer {
-            background-color: #222;
-            padding: 1.5rem 0;
-            text-align: center;
-            color: #ddd;
-            margin-top: auto; /* Pushes the footer to the bottom */
-        }
-        .dropdown-menu {
-            background-color: #222;
-            border: 1px solid #444;
-        }
-        .dropdown-item {
-            color: #ddd;
-        }
-        .dropdown-item:hover, .dropdown-item:focus {
-            background-color: #444;
-            color: #fff;
-        }
-        .navbar-toggler {
-            border-color: rgba(255, 127, 80, 0.4);
-        }
-        .navbar-toggler:hover,
-        .navbar-toggler:focus {
-            border-color: rgba(255, 127, 80, 0.8);
-        }
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,127,80,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-        .section-icon {
-            font-size: 3rem;
-            color: #ff8c00;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-        h1 {
-            font-size: clamp(1.6rem, 5vw, 2.5rem);
-        }
-
-        a {
-            color: #ddd !important;
-        }
-
-        /* Responsive: fix iOS background-attachment & improve mobile spacing */
-        @media (max-width: 992px) {
-            body {
-                background-attachment: scroll;
-            }
-        }
-        @media (max-width: 767.98px) {
-            .card {
-                margin-bottom: 1rem;
-            }
-        }
-        @media (max-width: 576px) {
-            .container {
-                padding-left: 1.25rem;
-                padding-right: 1.25rem;
-            }
-        }
-
-    </style>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="images/company-logo.jpg" alt="RiverScape Security Logo" height="40" class="d-inline-block align-top">
-                RiverScape Security Oy
+    <!-- ========== NAVBAR ========== -->
+    <nav class="site-nav" id="siteNav">
+        <div class="nav-inner">
+            <a class="nav-brand" href="#">
+                <img src="images/company-logo.jpg" alt="RiverScape Security Logo">
+                <span>RiverScape Security</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#home" data-lang="home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services" data-lang="services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/riverscapesecurity" target="_blank">Github</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-lang="language">
-                            Language
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">🇬🇧 English</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('fi')">🇫🇮 Finnish</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active" data-lang="home">Home</a></li>
+                <li><a href="#services" data-lang="services">Services</a></li>
+                <li><a href="https://github.com/riverscapesecurity" target="_blank"><i class="fab fa-github"></i>
+                        Github</a></li>
+                <li>
+                    <div class="lang-switcher">
+                        <button class="lang-btn" id="langToggle" data-lang="language">🇬🇧 Language</button>
+                        <div class="lang-dropdown" id="langDropdown">
+                            <button onclick="changeLanguage('en')">🇬🇧 English</button>
+                            <button onclick="changeLanguage('fi')">🇫🇮 Finnish</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="text-center mt-5 mb-4" data-lang="hero_title"></h1>
-                <p class="lead text-center mb-5" data-lang="hero_subtitle">hero_subtitle</p>
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 data-lang="hero_title">We Speak Hacker. We Build Security.</h1>
+            <p class="tagline"><span id="typedText"></span><span class="cursor"></span></p>
+        </div>
+        <div class="scroll-hint">
+            <span data-lang="scroll_hint">Scroll</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ========== SERVICES ========== -->
+    <section class="services" id="services">
+        <div class="section-heading">
+            <h2 data-lang="services_title">Our Services</h2>
+            <p data-lang="services_subtitle">Comprehensive security solutions tailored for your organisation</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-user-secret"></i></div>
+                <h3 data-lang="service_1_title">Offensive Testing</h3>
+                <p data-lang="service_1_desc">service_1_desc</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-building-shield"></i></div>
+                <h3 data-lang="service_2_title">Physical Security</h3>
+                <p data-lang="service_2_desc">service_2_desc</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-chalkboard-user"></i></div>
+                <h3 data-lang="service_3_title">Training / Presentations</h3>
+                <p data-lang="service_3_desc">service_3_desc</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-secret section-icon"></i>
-                        <h5 class="card-title" data-lang="service_1_title">service_1_title</h5>
-                        <p class="card-text" data-lang="service_1_desc">service_1_desc</p>
-                    </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <img src="images/company-logo.jpg" alt="Logo">
+                    <span>RiverScape Security</span>
                 </div>
+                <p data-lang="vat_desc">VAT ID: FI34981249</p>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-person-chalkboard section-icon"></i>
-                        <h5 class="card-title" data-lang="service_2_title">service_2_title</h5>
-                        <p class="card-text" data-lang="service_2_desc">service_2_desc</p>
-                    </div>
+            <div class="footer-center">
+                <div class="footer-social">
+                    <a href="https://github.com/riverscapesecurity" target="_blank" aria-label="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="mailto:sales@riverscapesecurity.fi" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
+                <p><a href="mailto:sales@riverscapesecurity.fi">sales@riverscapesecurity.fi</a></p>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-chalkboard-user section-icon"></i>
-                        <h5 class="card-title" data-lang="service_3_title">service_3_title</h5>
-                        <p class="card-text" data-lang="service_3_desc">service_3_desc</p>
-                    </div>
-                </div>
+            <div class="footer-col footer-right">
+                <p>📍 Finland 🇫🇮</p>
+                <p><a href="https://riverscapesecurity.fi">riverscapesecurity.fi</a></p>
             </div>
         </div>
-    </div>
-    
-    <footer class="bg-dark text-center py-3">
-        <div class="container">
-            <p data-lang="copy_desc"></p>
-            <p><a href="mailto:sales@riverscapesecurity.fi">sales@riverscapesecurity.fi</a></p>
-            <p data-lang="vat_desc"></p>            
+        <div class="footer-bottom">
+            <p data-lang="copy_desc">(c) 2024-2025 RiverScape Security Ltd. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            loadLanguage('en'); // Default language
-        });
-
+        /* ===========================================================
+           TRANSLATIONS  (unchanged content)
+           =========================================================== */
         const translations = {
             en: {
                 home: 'Home',
@@ -211,6 +129,7 @@
                 hero_title: 'We Speak Hacker. We Build Security.',
                 hero_subtitle: '.:: Ethical Hacking company based in Finland 🇫🇮 ::.',
                 services_title: 'Our Services',
+                services_subtitle: 'Comprehensive security solutions tailored for your organisation',
                 service_1_title: 'Offensive Testing',
                 service_1_desc: "Threats to mobile, IoT, and web are constantly evolving. Don't leave your critical platforms vulnerable. Our expert hacking services proactively identify weaknesses in your mobile apps, IoT-devices, and web applications before attackers exploit them. Gain actionable insights and strengthen your security posture. Let's secure your digital ecosystem!",
                 service_2_title: 'Physical Security',
@@ -218,7 +137,8 @@
                 service_3_title: 'Training / Presentations',
                 service_3_desc: "Want to empower your team with the latest knowledge and skills? Our dynamic trainings and engaging live presentations deliver impactful learning experiences that drive real results. From industry best practices to cutting-edge techniques, we bring expertise directly to you, fostering growth and boosting performance. Ready to invest in your team's potential?",
                 vat_desc: "VAT ID: FI34981249",
-		copy_desc: "(c) 2024-2025 RiverScape Security Ltd. All rights reserved.",
+                copy_desc: "(c) 2024-2025 RiverScape Security Ltd. All rights reserved.",
+                scroll_hint: "Scroll",
             },
             fi: {
                 home: 'Koti',
@@ -228,6 +148,7 @@
                 hero_subtitle: '.:: Eettistä Hakkerointia suoraan Suomesta 🇫🇮 ::.',
                 contact_us: 'Ota yhteyttä',
                 services_title: 'Palveluitamme',
+                services_subtitle: 'Kattavat tietoturvaratkaisut räätälöitynä organisaatiollesi',
                 service_1_title: 'Hyökkäys Testaus',
                 service_1_desc: "Mobiili-, IoT- ja verkkouhat kehittyvät jatkuvasti. Älä jätä kriittisiä alustojasi haavoittuviksi. Asiantuntevat hakkerointipalvelumme tunnistavat ennakoivasti mobiilisovellustesi, IoT-laitteiden ja verkkosovellusten heikkoudet ennen kuin hyökkääjät käyttävät niitä hyväkseen. Hanki käyttökelpoisia oivalluksia ja vahvista tietoturvaasi. Eiköhän suojata myös teidän digitaalinen ekosysteemi!",
                 service_2_title: 'Fyysinen turvallisuus',
@@ -235,11 +156,15 @@
                 service_3_title: 'Koulutukset / Esitykset',
                 service_3_desc: 'Haluatko antaa tiimillesi uusimmat tiedot ja taidot? Dynaamiset koulutuksemme ja mukaansatempaavat live-esityksemme tarjoavat vaikuttavia oppimiskokemuksia, jotka johtavat todellisiin tuloksiin. Toimialan parhaista käytännöistä huipputekniikoihin tuomme asiantuntemuksen suoraan sinulle, mikä edistää kasvua ja tehostaa suorituskykyä. Oletko valmis investoimaan tiimisi potentiaaliin?',
                 vat_desc: "Y-TUNNUS: 3498124-9",
-		copy_desc: "(c) 2024-2025 RiverScape Security Oy. Kaikki oikeudet pidätetään.",
+                copy_desc: "(c) 2024-2025 RiverScape Security Oy. Kaikki oikeudet pidätetään.",
+                scroll_hint: "Selaa",
             }
         };
 
+        let currentLang = 'en';
+
         function loadLanguage(lang) {
+            currentLang = lang;
             document.querySelectorAll('[data-lang]').forEach(item => {
                 const key = item.getAttribute('data-lang');
                 if (translations[lang] && translations[lang][key]) {
@@ -247,11 +172,85 @@
                 }
             });
             document.documentElement.setAttribute('lang', lang);
+            // Re-run typing effect with new language
+            startTyping(translations[lang].hero_subtitle);
         }
 
         function changeLanguage(lang) {
             loadLanguage(lang);
+            // Close dropdown
+            document.getElementById('langDropdown').classList.remove('open');
         }
+
+        /* ===========================================================
+           TYPING EFFECT
+           =========================================================== */
+        let typeTimer = null;
+        function startTyping(text) {
+            const el = document.getElementById('typedText');
+            if (typeTimer) clearTimeout(typeTimer);
+            el.textContent = '';
+            let i = 0;
+            function tick() {
+                if (i <= text.length) {
+                    el.textContent = text.slice(0, i);
+                    i++;
+                    typeTimer = setTimeout(tick, 45);
+                }
+            }
+            tick();
+        }
+
+        /* ===========================================================
+           NAVBAR — scroll effect & mobile toggle
+           =========================================================== */
+        const nav = document.getElementById('siteNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        document.getElementById('navToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#navLinks a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        /* ===========================================================
+           LANGUAGE DROPDOWN TOGGLE
+           =========================================================== */
+        document.getElementById('langToggle').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('langDropdown').classList.toggle('open');
+        });
+        document.addEventListener('click', () => {
+            document.getElementById('langDropdown').classList.remove('open');
+        });
+
+        /* ===========================================================
+           SCROLL REVEAL (IntersectionObserver)
+           =========================================================== */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.glass-card').forEach(card => observer.observe(card));
+
+        /* ===========================================================
+           INIT
+           =========================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLanguage('en');
+        });
     </script>
 </body>
+
 </html>
