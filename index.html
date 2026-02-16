@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RiverScape Security – Ethical hacking, offensive testing, physical security and training based in Finland.">
     <title>RiverScape Security</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -71,11 +72,14 @@
             color: #fff;
         }
         .navbar-toggler {
-            border-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 127, 80, 0.4);
         }
         .navbar-toggler:hover,
         .navbar-toggler:focus {
-            border-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 127, 80, 0.8);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,127,80,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
         .section-icon {
             font-size: 3rem;
@@ -83,9 +87,30 @@
             margin-bottom: 1.5rem;
             display: inline-block;
         }
+        h1 {
+            font-size: clamp(1.6rem, 5vw, 2.5rem);
+        }
 
         a {
             color: #ddd !important;
+        }
+
+        /* Responsive: fix iOS background-attachment & improve mobile spacing */
+        @media (max-width: 992px) {
+            body {
+                background-attachment: scroll;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .card {
+                margin-bottom: 1rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
         }
 
     </style>
@@ -96,9 +121,10 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="images/company-logo.jpg" alt="RiverScape Security Logo" height="40" class="d-inline-block align-top">
+                RiverScape Security Oy
             </a>
-            RiverScape Security Oy
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -133,7 +159,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <i class="fas fa-user-secret section-icon"></i>
@@ -151,7 +177,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                     <div
                      class="card-body text-center">
@@ -204,7 +230,7 @@
                 contact_us: 'Ota yhteyttä',
                 services_title: 'Palveluitamme',
                 service_1_title: 'Hyökkäys Testaus',
-                service_1_desc: "Mobiili-, IoT- ja verkkouhat kehittyvät jatkuvasti. Älä jätä kriittisiä alustojasi haavoittuviksi. Asiantuntevat hakkerointipalvelumme tunnistavat ennakoivasti mobiilisovellustesi, IoT-laitteiden ja verkkosovellusten heikkoudet ennen kuin hyökkääjät käyttävät niitä hyväkseen. Hanki käyttökelpoisia oivalluksia ja vahvista tietoturvaasi. Eiköhän suojata myös teidän digitaalinen ekosysteemi!",
+                service_1_desc: "Mobiili-, IoT- ja verkkouhat kehittyvät jatkuvasti. Älä jätä kriittisiä alustojasi haavoittuviksi. Asiantuntevat hakkerointipalvelumme tunnistavat ennakoivasti mobiilisovellustesi, IoT-laitteiden ja verkkosovellusten heikkoudet ennen kuin hyökkääjät käyttävät niitä hyväkseen. Hanki käyttökelpoisia oivalluksia ja vahvista tietoturvaasentasi. Eiköhän suojella teidän digitaalinen ekosysteemi!",
                 service_2_title: 'Fyysinen turvallisuus',
                 service_2_desc: 'Luuletko, että fyysinen turvallisuutesi on läpäisemätön? Mieti uudelleen. Erikoistuneet fyysiset hakkerointipalvelumme menevät digitaalisia uhkia pidemmälle ja tunnistavat haavoittuvuuksia lukoissasi, rakennuksissasi ja kulunvalvontajärjestelmissäsi ennen todellisen murron tapahtumista. Paljastamme heikkouksia, joiden olemassaolosta et tiennyt, ja tarjoamme käyttökelpoisia oivalluksia puolustustesi vahvistamiseen. Otetaan yhdessä selvää!',
                 service_3_title: 'Koulutukset / Esitykset',
