@@ -1,0 +1,4 @@
+Contact: mailto:security@riverscapesecurity.fi
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en, fi
+Canonical: https://riverscapesecurity.fi/.well-known/security.txt
