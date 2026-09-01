@@ -60,12 +60,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&family=VT323&family=Press+Start+2P&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pixel.css">
+
+    <!-- Apply the stored skin before first paint -->
+    <script>
+        try {
+            var q = new URLSearchParams(location.search).get('theme');
+            var pick = q || localStorage.getItem('rs-theme');
+            if (pick === 'bbs') {
+                document.documentElement.setAttribute('data-theme', 'bbs');
+            }
+        } catch (e) { }
+    </script>
 </head>
 
 <body>
@@ -89,6 +101,10 @@
                 <li><a href="https://github.com/riverscapesecurity" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github" aria-hidden="true"></i> Github</a></li>
                 <li>
+                    <button class="theme-btn" id="themeToggle" aria-pressed="false"
+                        aria-label="Vaihda ulkoasu / Switch theme">&#9619; BBS-TILA</button>
+                </li>
+                <li>
                     <div class="lang-switcher">
                         <button class="lang-btn" id="langToggle" data-lang="language"
                             aria-label="Valitse kieli" aria-haspopup="true" aria-expanded="false"
@@ -106,10 +122,39 @@
     <!-- ========== HERO ========== -->
     <section class="hero" id="home">
         <div class="hero-content">
+            <div class="pixel-logo bbs-only" aria-hidden="true"><i></i></div>
+            <div class="ansi-rule bbs-only" aria-hidden="true">
+&#9617;&#9618;&#9619;&#9608; NODE 1 &#9608; 2400 BAUD &#9608; ANSI ON &#9608; SINCE 2024 &#9608;&#9619;&#9618;&#9617;</div>
             <h1 data-lang="hero_title">Puhumme hakkerien kieltä. Rakennamme turvallisuutta.</h1>
             <p class="tagline">
                 <span id="typedText">.:: Eettistä hakkerointia Suomesta 🇫🇮 ::.</span><span class="cursor"></span>
             </p>
+            <div class="bbs-panels bbs-only flex">
+            <div class="bbs-menu">
+                <div class="bbs-menu-title" data-lang="bbs_menu_title">.:: PÄÄVALIKKO ::.</div>
+                <ul>
+                    <li><span class="key">[1]</span> <a href="#services"
+                            data-lang="bbs_menu_1">Palvelut &mdash; tiedostoalueet</a></li>
+                    <li><span class="key">[2]</span> <a href="https://github.com/riverscapesecurity" target="_blank"
+                            rel="noopener noreferrer" data-lang="bbs_menu_2">GitHub &mdash; koodivarasto</a></li>
+                    <li><span class="key">[3]</span> <a href="mailto:sales@riverscapesecurity.fi"
+                            data-lang="bbs_menu_3">Sähköposti sysopille</a></li>
+                    <li><span class="key">[G]</span> <a href="#home" id="bbsGoodbye"
+                            data-lang="bbs_menu_g">Goodbye &mdash; takaisin nykyaikaan</a></li>
+                </ul>
+            </div>
+            <div class="bbs-status" aria-hidden="true">
+                <div class="bbs-status-title">.:: SYSTEM STATUS ::.</div>
+                <ul>
+                    <li><span>NODE</span><b>1 / 1 ONLINE</b></li>
+                    <li><span>SYSOP</span><b>RiverScape Security Oy</b></li>
+                    <li><span>LOCATION</span><b>Finland</b></li>
+                    <li><span>Y-TUNNUS</span><b>3498124-9</b></li>
+                    <li><span>ONLINE SINCE</span><b>2024</b></li>
+                    <li><span>TERMINAL</span><b>ANSI-BBS 80x25</b></li>
+                </ul>
+            </div>
+            </div>
         </div>
         <div class="scroll-hint">
             <span data-lang="scroll_hint">Selaa</span>
@@ -119,6 +164,9 @@
 
     <!-- ========== SERVICES ========== -->
     <section class="services" id="services">
+        <div class="bbs-ticker bbs-only" aria-hidden="true"><span
+                id="bbsTicker">*** SYSOP: Tervetuloa RiverScape Security BBS:aan &#9642; Uudet tiedostoalueet auki &#9642; Yhteys: sales@riverscapesecurity.fi ***</span>
+        </div>
         <div class="section-heading">
             <h2 data-lang="services_title">Palveluitamme</h2>
             <p data-lang="services_subtitle">Kattavat tietoturvaratkaisut räätälöitynä organisaatiollesi</p>
@@ -170,6 +218,7 @@
         </div>
         <div class="footer-bottom">
             <p data-lang="copy_desc">© 2024–2026 RiverScape Security Oy. Kaikki oikeudet pidätetään.</p>
+            <p class="bbs-carrier bbs-only" aria-hidden="true">&#9619;&#9618;&#9617; NO CARRIER &#9617;&#9618;&#9619;</p>
         </div>
     </footer>
 
@@ -195,6 +244,14 @@
                 vat_desc: "VAT ID: FI34981249",
                 copy_desc: "© 2024–2026 RiverScape Security Ltd. All rights reserved.",
                 scroll_hint: "Scroll",
+                bbs_menu_title: '.:: MAIN MENU ::.',
+                bbs_menu_1: 'Services \u2014 file areas',
+                bbs_menu_2: 'GitHub \u2014 code repository',
+                bbs_menu_3: 'E-mail the sysop',
+                bbs_menu_g: 'Goodbye \u2014 back to the modern site',
+                theme_to_bbs: '\u2593 BBS MODE',
+                theme_to_www: '\u00D7 EXIT BBS',
+                ticker: '*** SYSOP: Welcome to the RiverScape Security BBS \u25AA Offensive testing, physical security and trainings \u25AA Finnish ethical hacking since 2024 \u25AA Leave a message: sales@riverscapesecurity.fi ***',
             },
             fi: {
                 home: 'Koti',
@@ -213,6 +270,14 @@
                 vat_desc: "Y-tunnus: 3498124-9",
                 copy_desc: "© 2024–2026 RiverScape Security Oy. Kaikki oikeudet pidätetään.",
                 scroll_hint: "Selaa",
+                bbs_menu_title: '.:: P\u00C4\u00C4VALIKKO ::.',
+                bbs_menu_1: 'Palvelut \u2014 tiedostoalueet',
+                bbs_menu_2: 'GitHub \u2014 koodivarasto',
+                bbs_menu_3: 'S\u00E4hk\u00F6posti sysopille',
+                bbs_menu_g: 'Goodbye \u2014 takaisin nykyaikaan',
+                theme_to_bbs: '\u2593 BBS-TILA',
+                theme_to_www: '\u00D7 POISTU BBS',
+                ticker: '*** SYSOP: Tervetuloa RiverScape Security BBS:aan \u25AA Hy\u00F6kk\u00E4ystestaus, fyysinen turvallisuus ja koulutukset \u25AA Suomalaista eettist\u00E4 hakkerointia vuodesta 2024 \u25AA J\u00E4t\u00E4 viesti: sales@riverscapesecurity.fi ***',
             }
         };
 
@@ -228,6 +293,7 @@
             });
             document.documentElement.setAttribute('lang', lang);
             startTyping(translations[lang].hero_subtitle);
+            updateBbsChrome();
         }
 
         function changeLanguage(lang) {
@@ -305,10 +371,156 @@
         document.querySelectorAll('.glass-card').forEach(card => observer.observe(card));
 
         /* ===========================================================
+           BBS / PIXEL SKIN
+           =========================================================== */
+        const THEME_KEY = 'rs-theme';
+        const root = document.documentElement;
+        const themeBtn = document.getElementById('themeToggle');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function isBBS() {
+            return root.getAttribute('data-theme') === 'bbs';
+        }
+
+        /* Labels that live outside the [data-lang] sweep */
+        function updateBbsChrome() {
+            const t = translations[currentLang];
+            if (themeBtn) {
+                themeBtn.textContent = isBBS() ? t.theme_to_www : t.theme_to_bbs;
+                themeBtn.setAttribute('aria-pressed', isBBS() ? 'true' : 'false');
+            }
+            const ticker = document.getElementById('bbsTicker');
+            if (ticker) ticker.textContent = t.ticker;
+        }
+
+        /* Nearest-neighbour downscale + upscale = real pixel art from the logo.
+           Falls back to CSS `image-rendering: pixelated` if the canvas is tainted
+           (e.g. the page opened over file://). */
+        function pixelateLogos(on) {
+            document.querySelectorAll('img[alt*="Logo"]').forEach(img => {
+                if (!img.dataset.orig) img.dataset.orig = img.getAttribute('src');
+                if (!on) {
+                    img.src = img.dataset.orig;
+                    return;
+                }
+                const probe = new Image();
+                probe.onload = () => {
+                    try {
+                        const S = 20, Z = 12;
+                        const small = document.createElement('canvas');
+                        small.width = small.height = S;
+                        small.getContext('2d').drawImage(probe, 0, 0, S, S);
+                        const big = document.createElement('canvas');
+                        big.width = big.height = S * Z;
+                        const bc = big.getContext('2d');
+                        bc.imageSmoothingEnabled = false;
+                        bc.drawImage(small, 0, 0, S * Z, S * Z);
+                        img.src = big.toDataURL('image/png');
+                    } catch (e) { /* keep the original bitmap */ }
+                };
+                probe.src = img.dataset.orig;
+            });
+        }
+
+        /* Dial-up connect sequence */
+        const BOOT_LINES = [
+            ['ATDT 09-555-0100', ''],
+            ['CONNECT 2400/ARQ/V42BIS/LAPM', 'ok'],
+            ['', ''],
+            ['RiverScape Security BBS  -  Node 1 of 1', 'hi'],
+            ['Detecting terminal ...... ANSI-BBS 80x25', ''],
+            ['Loading pixel font ...... OK', 'ok'],
+            ['Scanning for intruders .. 0 found (you are logged)', 'warn'],
+            ['', ''],
+            ['Press any key to continue...', 'hi']
+        ];
+
+        function bootSequence() {
+            if (reduceMotion) return;
+            const ov = document.createElement('pre');
+            ov.id = 'bbsBoot';
+            document.body.appendChild(ov);
+            let i = 0, timer = null, done = false;
+
+            function finish() {
+                if (done) return;
+                done = true;
+                clearTimeout(timer);
+                document.removeEventListener('keydown', finish);
+                ov.remove();
+            }
+            document.addEventListener('keydown', finish);
+            ov.addEventListener('click', finish);
+
+            (function step() {
+                if (i < BOOT_LINES.length) {
+                    const [text, cls] = BOOT_LINES[i++];
+                    const line = document.createElement('div');
+                    if (cls) line.className = cls;
+                    line.textContent = text || ' ';
+                    ov.appendChild(line);
+                    timer = setTimeout(step, 130);
+                } else {
+                    timer = setTimeout(finish, 900);
+                }
+            })();
+        }
+
+        function setTheme(theme, animate) {
+            if (theme === 'bbs') {
+                root.setAttribute('data-theme', 'bbs');
+                pixelateLogos(true);
+                if (animate) bootSequence();
+            } else {
+                root.removeAttribute('data-theme');
+                pixelateLogos(false);
+            }
+            updateBbsChrome();
+            try { localStorage.setItem(THEME_KEY, theme); } catch (e) { }
+        }
+
+        themeBtn.addEventListener('click', () => setTheme(isBBS() ? 'www' : 'bbs', true));
+
+        document.getElementById('bbsGoodbye').addEventListener('click', (e) => {
+            e.preventDefault();
+            setTheme('www');
+            window.scrollTo({ top: 0 });
+        });
+
+        /* BBS menu hotkeys: 1 / 2 / 3 / G */
+        document.addEventListener('keydown', (e) => {
+            if (!isBBS() || document.getElementById('bbsBoot')) return;
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            if (e.target.closest('input, textarea, select')) return;
+            switch (e.key.toLowerCase()) {
+                case '1':
+                    document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+                    break;
+                case '2':
+                    window.open('https://github.com/riverscapesecurity', '_blank', 'noopener');
+                    break;
+                case '3':
+                    window.location.href = 'mailto:sales@riverscapesecurity.fi';
+                    break;
+                case 'g':
+                    setTheme('www');
+                    window.scrollTo({ top: 0 });
+                    break;
+            }
+        });
+
+        /* ===========================================================
            INIT
            =========================================================== */
         document.addEventListener('DOMContentLoaded', () => {
             loadLanguage('fi');
+            let saved = null;
+            try {
+                saved = new URLSearchParams(location.search).get('theme')
+                    || localStorage.getItem(THEME_KEY);
+            } catch (e) { }
+            if (saved === 'bbs') setTheme('bbs', false);
+            updateBbsChrome();
         });
     </script>
 </body>

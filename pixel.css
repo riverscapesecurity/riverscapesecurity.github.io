@@ -1,0 +1,825 @@
+/* ============================================================
+   BBS / PIXEL-ART THEME — RiverScape Security
+   Scoped to html[data-theme="bbs"]; loading this file alone
+   changes nothing until the theme attribute is set.
+   Palette: IBM CGA/EGA 16 colours. Fonts: Press Start 2P + VT323.
+   ============================================================ */
+
+/* ---- Theme-conditional visibility (works in both themes) ---- */
+.bbs-only {
+    display: none !important;
+}
+
+html[data-theme="bbs"] .bbs-only {
+    display: block !important;
+}
+
+html[data-theme="bbs"] .bbs-only.inline {
+    display: inline-block !important;
+}
+
+html[data-theme="bbs"] .bbs-only.flex {
+    display: flex !important;
+}
+
+html[data-theme="bbs"] .www-only {
+    display: none !important;
+}
+
+/* ---- Theme switch button (visible in both themes) ---- */
+.theme-btn {
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.12);
+    color: #00e5ff;
+    padding: .4rem .85rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: .85rem;
+    font-weight: 500;
+    transition: all .25s;
+}
+
+.theme-btn:hover {
+    background: rgba(0, 229, 255, 0.15);
+    border-color: rgba(0, 229, 255, 0.3);
+}
+
+/* ============================================================
+   TOKENS
+   ============================================================ */
+html[data-theme="bbs"] {
+    --c-black: #000000;
+    --c-blue: #0000aa;
+    --c-green: #00aa00;
+    --c-cyan: #00aaaa;
+    --c-red: #aa0000;
+    --c-magenta: #aa00aa;
+    --c-brown: #aa5500;
+    --c-lgray: #aaaaaa;
+    --c-dgray: #555555;
+    --c-lblue: #5555ff;
+    --c-lgreen: #55ff55;
+    --c-lcyan: #55ffff;
+    --c-lred: #ff5555;
+    --c-lmagenta: #ff55ff;
+    --c-yellow: #ffff55;
+    --c-white: #ffffff;
+
+    --f-pix: 'Press Start 2P', 'Courier New', monospace;
+    --f-term: 'VT323', 'Courier New', monospace;
+
+    background: var(--c-black);
+    scroll-behavior: auto;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html[data-theme="bbs"] body {
+    background: var(--c-black);
+    color: var(--c-lgray);
+    font-family: var(--f-term);
+    font-size: 1.35rem;
+    line-height: 1.35;
+    letter-spacing: .02em;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+}
+
+html[data-theme="bbs"] .hero-content,
+html[data-theme="bbs"] .bbs-menu {
+    max-width: min(900px, 100%);
+}
+
+html[data-theme="bbs"] img,
+html[data-theme="bbs"] canvas {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    border-radius: 0 !important;
+}
+
+/* Kill the glass-era backdrops */
+html[data-theme="bbs"] body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+    animation: none;
+    background:
+        repeating-linear-gradient(to bottom,
+            rgba(0, 0, 0, .35) 0px,
+            rgba(0, 0, 0, .35) 1px,
+            rgba(0, 0, 0, 0) 1px,
+            rgba(0, 0, 0, 0) 3px);
+    opacity: .45;
+    transform: none;
+}
+
+/* CRT vignette + phosphor flicker */
+html[data-theme="bbs"] body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 8999;
+    pointer-events: none;
+    background-image:
+        radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, .55) 100%);
+    opacity: 1;
+    animation: crtFlicker 5.5s steps(2) infinite;
+}
+
+@keyframes crtFlicker {
+
+    0%,
+    97%,
+    100% {
+        opacity: 1;
+    }
+
+    98% {
+        opacity: .88;
+    }
+}
+
+html[data-theme="bbs"] a {
+    color: var(--c-lcyan);
+    text-shadow: 0 0 6px rgba(85, 255, 255, .45);
+}
+
+html[data-theme="bbs"] a:hover {
+    color: var(--c-black);
+    background: var(--c-lcyan);
+    text-shadow: none;
+}
+
+/* ============================================================
+   BOOT / CONNECT OVERLAY
+   ============================================================ */
+#bbsBoot {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    background: var(--c-black);
+    color: var(--c-lgray);
+    font-family: var(--f-term);
+    font-size: 1.3rem;
+    line-height: 1.35;
+    padding: 2rem 1.25rem;
+    white-space: pre-wrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#bbsBoot .ok {
+    color: var(--c-lgreen);
+}
+
+#bbsBoot .hi {
+    color: var(--c-lcyan);
+}
+
+#bbsBoot .warn {
+    color: var(--c-yellow);
+}
+
+/* ============================================================
+   NAVBAR -> BBS STATUS BAR
+   ============================================================ */
+html[data-theme="bbs"] .site-nav {
+    background: var(--c-blue);
+    border-bottom: 2px solid var(--c-lcyan);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+html[data-theme="bbs"] .site-nav.scrolled {
+    background: var(--c-blue);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    box-shadow: 0 2px 0 rgba(85, 255, 255, .25);
+}
+
+html[data-theme="bbs"] .nav-inner {
+    max-width: 1100px;
+    padding: .5rem .9rem;
+}
+
+html[data-theme="bbs"] .nav-brand {
+    font-family: var(--f-pix);
+    font-size: .62rem;
+    line-height: 1.5;
+    color: var(--c-yellow) !important;
+    text-shadow: 2px 2px 0 var(--c-black);
+    gap: .55rem;
+}
+
+html[data-theme="bbs"] .nav-brand img {
+    height: 32px;
+    width: 32px;
+    border: 2px solid var(--c-lcyan);
+}
+
+html[data-theme="bbs"] .nav-links {
+    gap: 1.1rem;
+    font-family: var(--f-term);
+}
+
+html[data-theme="bbs"] .nav-links a {
+    color: var(--c-white) !important;
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-shadow: none;
+    padding: 0 .25rem;
+}
+
+html[data-theme="bbs"] .nav-links a::after {
+    display: none;
+}
+
+html[data-theme="bbs"] .nav-links a::before {
+    content: '\00BB\00A0';
+    color: var(--c-lcyan);
+}
+
+html[data-theme="bbs"] .nav-links a:hover,
+html[data-theme="bbs"] .nav-links a.active {
+    background: var(--c-lcyan);
+    color: var(--c-black) !important;
+}
+
+html[data-theme="bbs"] .nav-links a:hover::before,
+html[data-theme="bbs"] .nav-links a.active::before {
+    color: var(--c-black);
+}
+
+html[data-theme="bbs"] .nav-links a i {
+    display: none;
+}
+
+/* Buttons: [ LABEL ] */
+html[data-theme="bbs"] .lang-btn,
+html[data-theme="bbs"] .theme-btn {
+    background: var(--c-black);
+    border: 2px solid var(--c-lcyan);
+    border-radius: 0;
+    color: var(--c-lcyan);
+    font-family: var(--f-term);
+    font-size: 1.15rem;
+    padding: .1rem .55rem;
+    letter-spacing: .04em;
+}
+
+html[data-theme="bbs"] .lang-btn:hover,
+html[data-theme="bbs"] .theme-btn:hover {
+    background: var(--c-lcyan);
+    color: var(--c-black);
+}
+
+html[data-theme="bbs"] .lang-dropdown {
+    background: var(--c-black);
+    border: 2px solid var(--c-lcyan);
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .8);
+    top: calc(100% + 4px);
+}
+
+html[data-theme="bbs"] .lang-dropdown button {
+    background: var(--c-black);
+    color: var(--c-lgray);
+    font-family: var(--f-term);
+    font-size: 1.15rem;
+    padding: .2rem .6rem;
+}
+
+html[data-theme="bbs"] .lang-dropdown button:hover {
+    background: var(--c-lcyan);
+    color: var(--c-black);
+}
+
+html[data-theme="bbs"] .nav-toggle {
+    border: 2px solid var(--c-lcyan);
+    border-radius: 0;
+    color: var(--c-lcyan);
+    background: var(--c-black);
+    font-family: var(--f-term);
+    padding: .1rem .45rem;
+}
+
+html[data-theme="bbs"] .nav-toggle i {
+    display: none;
+}
+
+html[data-theme="bbs"] .nav-toggle::after {
+    content: '\2261';
+    /* CP437 triple bar */
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+/* ============================================================
+   HERO -> ANSI WELCOME SCREEN
+   ============================================================ */
+html[data-theme="bbs"] .hero {
+    padding: 6.5rem 1rem 3rem;
+    min-height: 100vh;
+}
+
+html[data-theme="bbs"] .hero-content {
+    max-width: 900px;
+    width: 100%;
+}
+
+html[data-theme="bbs"] .ansi-art {
+    font-family: var(--f-term);
+    font-size: clamp(9px, 2.05vw, 24px);
+    line-height: 1;
+    color: var(--c-lcyan);
+    text-shadow: 3px 3px 0 var(--c-magenta), 0 0 12px rgba(85, 255, 255, .3);
+    white-space: pre;
+    overflow-x: auto;
+    margin: 0 auto 1rem;
+    text-align: left;
+    display: inline-block;
+}
+
+html[data-theme="bbs"] .ansi-rule {
+    color: var(--c-magenta);
+    font-family: var(--f-term);
+    font-size: clamp(.72rem, 2.5vw, 1.1rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    max-width: 100%;
+    margin: .35rem 0 1rem;
+}
+
+html[data-theme="bbs"] .hero h1 {
+    font-family: var(--f-pix);
+    font-weight: 400;
+    font-size: clamp(.85rem, 2.6vw, 1.5rem);
+    line-height: 1.7;
+    background: none;
+    -webkit-text-fill-color: var(--c-yellow);
+    color: var(--c-yellow);
+    text-shadow: 3px 3px 0 var(--c-red);
+    margin-bottom: 1.25rem;
+}
+
+html[data-theme="bbs"] .hero .tagline {
+    font-family: var(--f-term);
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    color: var(--c-lgreen);
+    text-shadow: 0 0 7px rgba(85, 255, 85, .4);
+    margin-bottom: 1.5rem;
+}
+
+html[data-theme="bbs"] .hero .tagline .cursor {
+    width: .55em;
+    height: 1.05em;
+    background: var(--c-lgreen);
+    vertical-align: -.12em;
+    animation: blink .6s steps(1) infinite;
+}
+
+/* BBS main menu + system status boxes */
+html[data-theme="bbs"] .bbs-panels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 1.25rem;
+    justify-content: center;
+    align-items: stretch;
+}
+
+html[data-theme="bbs"] .bbs-menu,
+html[data-theme="bbs"] .bbs-status {
+    border: 3px double var(--c-lcyan);
+    background: var(--c-black);
+    padding: 1rem 1.1rem .9rem;
+    text-align: left;
+    position: relative;
+    box-shadow: 6px 6px 0 rgba(0, 0, 170, .6);
+}
+
+html[data-theme="bbs"] .bbs-menu {
+    flex: 1 1 330px;
+    max-width: 460px;
+}
+
+html[data-theme="bbs"] .bbs-status {
+    flex: 1 1 280px;
+    max-width: 380px;
+}
+
+html[data-theme="bbs"] .bbs-status-title {
+    position: absolute;
+    top: -.85em;
+    left: 1rem;
+    background: var(--c-black);
+    padding: 0 .5rem;
+    color: var(--c-lgreen);
+    font-family: var(--f-term);
+    font-size: 1.2rem;
+    letter-spacing: .08em;
+}
+
+html[data-theme="bbs"] .bbs-status ul {
+    list-style: none;
+    font-size: 1.15rem;
+}
+
+html[data-theme="bbs"] .bbs-status li {
+    display: flex;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .05rem 0;
+    border-bottom: 1px dotted var(--c-dgray);
+}
+
+html[data-theme="bbs"] .bbs-status li:last-child {
+    border-bottom: 0;
+}
+
+html[data-theme="bbs"] .bbs-status span {
+    color: var(--c-lgray);
+}
+
+html[data-theme="bbs"] .bbs-status b {
+    color: var(--c-lgreen);
+    font-weight: 400;
+    text-align: right;
+}
+
+html[data-theme="bbs"] .bbs-menu-title {
+    position: absolute;
+    top: -.85em;
+    left: 1rem;
+    background: var(--c-black);
+    padding: 0 .5rem;
+    color: var(--c-lmagenta);
+    font-family: var(--f-term);
+    font-size: 1.2rem;
+    letter-spacing: .08em;
+}
+
+html[data-theme="bbs"] .bbs-menu ul {
+    list-style: none;
+    font-size: 1.25rem;
+}
+
+html[data-theme="bbs"] .bbs-menu li {
+    padding: .1rem 0;
+}
+
+html[data-theme="bbs"] .bbs-menu .key {
+    color: var(--c-yellow);
+}
+
+html[data-theme="bbs"] .bbs-menu a {
+    color: var(--c-lgray);
+    text-shadow: none;
+}
+
+html[data-theme="bbs"] .bbs-menu a:hover {
+    background: var(--c-lcyan);
+    color: var(--c-black);
+}
+
+html[data-theme="bbs"] .scroll-hint {
+    font-family: var(--f-term);
+    font-size: 1.05rem;
+    color: var(--c-lgray);
+    letter-spacing: .18em;
+    opacity: .85;
+    animation: none;
+    bottom: 1.2rem;
+}
+
+html[data-theme="bbs"] .scroll-hint i {
+    display: none;
+}
+
+html[data-theme="bbs"] .scroll-hint::after {
+    content: '\25BC';
+    color: var(--c-yellow);
+    animation: blink 1s steps(1) infinite;
+}
+
+/* ============================================================
+   SERVICES -> FILE AREAS
+   ============================================================ */
+html[data-theme="bbs"] .services {
+    padding: 3rem 1rem 4rem;
+    max-width: 1100px;
+}
+
+html[data-theme="bbs"] .section-heading h2 {
+    font-family: var(--f-pix);
+    font-weight: 400;
+    font-size: clamp(.8rem, 2.2vw, 1.15rem);
+    color: var(--c-lcyan);
+    text-shadow: 3px 3px 0 var(--c-blue);
+    line-height: 1.6;
+    margin-bottom: .9rem;
+}
+
+html[data-theme="bbs"] .section-heading h2::before {
+    content: '\2591\2592\2593 ';
+    color: var(--c-magenta);
+}
+
+html[data-theme="bbs"] .section-heading h2::after {
+    content: ' \2593\2592\2591';
+    color: var(--c-magenta);
+}
+
+html[data-theme="bbs"] .section-heading p {
+    font-family: var(--f-term);
+    font-size: 1.3rem;
+    color: var(--c-yellow);
+}
+
+html[data-theme="bbs"] .cards-grid {
+    gap: 1.5rem 1.25rem;
+}
+
+html[data-theme="bbs"] .glass-card {
+    background: var(--c-black);
+    border: 3px double var(--c-lcyan);
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 1.6rem 1.1rem 1.2rem;
+    text-align: left;
+    position: relative;
+    box-shadow: 6px 6px 0 rgba(0, 0, 170, .6);
+    transition: opacity .25s steps(3), transform .25s steps(3), box-shadow .1s;
+}
+
+html[data-theme="bbs"] .glass-card:hover {
+    transform: translate(-2px, -2px);
+    border-color: var(--c-yellow);
+    box-shadow: 8px 8px 0 rgba(170, 0, 170, .7);
+}
+
+/* Area number tag punched into the frame */
+html[data-theme="bbs"] .glass-card::before {
+    position: absolute;
+    top: -.8em;
+    left: .9rem;
+    background: var(--c-black);
+    padding: 0 .45rem;
+    font-family: var(--f-term);
+    font-size: 1.15rem;
+    letter-spacing: .06em;
+    color: var(--c-lmagenta);
+}
+
+html[data-theme="bbs"] .glass-card:nth-child(1)::before {
+    content: '[ AREA 01 ]';
+}
+
+html[data-theme="bbs"] .glass-card:nth-child(2)::before {
+    content: '[ AREA 02 ]';
+}
+
+html[data-theme="bbs"] .glass-card:nth-child(3)::before {
+    content: '[ AREA 03 ]';
+}
+
+html[data-theme="bbs"] .card-icon {
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: none;
+    margin: 0 0 .6rem;
+    justify-content: flex-start;
+    font-family: var(--f-term);
+    font-size: 1.5rem;
+    letter-spacing: .05em;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+html[data-theme="bbs"] .card-icon i {
+    display: none;
+}
+
+html[data-theme="bbs"] .glass-card:nth-child(1) .card-icon::after {
+    content: '\2591\2592\2593\2588 \25BA \2588\2593\2592\2591';
+    color: var(--c-lcyan);
+}
+
+html[data-theme="bbs"] .glass-card:nth-child(2) .card-icon::after {
+    content: '\2591\2592\2593\2588 \25B2 \2588\2593\2592\2591';
+    color: var(--c-yellow);
+}
+
+html[data-theme="bbs"] .glass-card:nth-child(3) .card-icon::after {
+    content: '\2591\2592\2593\2588 \2666 \2588\2593\2592\2591';
+    color: var(--c-lmagenta);
+}
+
+html[data-theme="bbs"] .glass-card h3 {
+    font-family: var(--f-pix);
+    font-weight: 400;
+    font-size: .78rem;
+    line-height: 1.7;
+    color: var(--c-white);
+    text-shadow: 2px 2px 0 var(--c-black), 0 0 10px rgba(85, 255, 255, .35);
+    margin-bottom: .8rem;
+}
+
+html[data-theme="bbs"] .glass-card p {
+    font-family: var(--f-term);
+    font-size: 1.24rem;
+    line-height: 1.32;
+    color: #cfcfcf;
+}
+
+/* ============================================================
+   FOOTER -> STATUS LINE
+   ============================================================ */
+html[data-theme="bbs"] footer {
+    background: var(--c-black);
+    border-top: 2px solid var(--c-lcyan);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 1.5rem 1rem 1rem;
+}
+
+html[data-theme="bbs"] .footer-brand {
+    font-family: var(--f-pix);
+    font-weight: 400;
+    font-size: .6rem;
+    line-height: 1.6;
+    color: var(--c-yellow);
+}
+
+html[data-theme="bbs"] .footer-brand img {
+    height: 28px;
+    width: 28px;
+    border: 2px solid var(--c-lcyan);
+}
+
+html[data-theme="bbs"] .footer-col p,
+html[data-theme="bbs"] .footer-right p,
+html[data-theme="bbs"] .footer-center p {
+    font-family: var(--f-term);
+    font-size: 1.2rem;
+    color: var(--c-lgray);
+}
+
+html[data-theme="bbs"] .footer-social a {
+    width: auto;
+    height: auto;
+    border: 2px solid var(--c-lcyan);
+    border-radius: 0;
+    color: var(--c-lcyan) !important;
+    font-family: var(--f-term);
+    font-size: 1.1rem;
+    padding: 0 .5rem;
+}
+
+html[data-theme="bbs"] .footer-social a i {
+    display: none;
+}
+
+html[data-theme="bbs"] .footer-social a[aria-label="GitHub"]::after {
+    content: 'GITHUB';
+}
+
+html[data-theme="bbs"] .footer-social a[aria-label="Email"]::after {
+    content: 'E-MAIL';
+}
+
+html[data-theme="bbs"] .footer-social a:hover {
+    background: var(--c-lcyan);
+    color: var(--c-black) !important;
+    transform: none;
+}
+
+html[data-theme="bbs"] .footer-bottom {
+    border-top: 1px dashed var(--c-dgray);
+    font-family: var(--f-term);
+    font-size: 1.1rem;
+    color: var(--c-dgray);
+}
+
+/* Scrolling SysOp ticker */
+html[data-theme="bbs"] .bbs-ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid var(--c-lcyan);
+    border-bottom: 2px solid var(--c-lcyan);
+    background: var(--c-blue);
+    color: var(--c-yellow);
+    font-family: var(--f-term);
+    font-size: 1.15rem;
+    padding: .1rem 0;
+    margin: 0 0 1.25rem;
+}
+
+html[data-theme="bbs"] .bbs-ticker span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: tickerScroll 26s linear infinite;
+}
+
+@keyframes tickerScroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Bottom "NO CARRIER" line */
+html[data-theme="bbs"] .bbs-carrier {
+    text-align: center;
+    font-family: var(--f-term);
+    font-size: 1.1rem;
+    color: var(--c-lred);
+    margin-top: .75rem;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    html[data-theme="bbs"] .nav-links {
+        background: var(--c-blue);
+        border-top: 2px solid var(--c-lcyan);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: .75rem 1rem;
+        gap: .5rem;
+        align-items: flex-start;
+    }
+
+    html[data-theme="bbs"] .nav-brand {
+        font-size: .5rem;
+    }
+
+    html[data-theme="bbs"] .glass-card,
+    html[data-theme="bbs"] .bbs-menu {
+        box-shadow: 4px 4px 0 rgba(0, 0, 170, .6);
+    }
+
+    html[data-theme="bbs"] .nav-toggle {
+        display: block;
+        min-width: 2rem;
+    }
+
+    html[data-theme="bbs"] .hero {
+        padding-top: 5.5rem;
+    }
+
+    html[data-theme="bbs"] .pixel-logo {
+        --px: clamp(3px, 1.35vw, 10px);
+    }
+
+    html[data-theme="bbs"] .bbs-menu ul,
+    html[data-theme="bbs"] .bbs-menu-title {
+        font-size: 1.1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    html[data-theme="bbs"] body::after,
+    html[data-theme="bbs"] .bbs-ticker span,
+    html[data-theme="bbs"] .scroll-hint::after,
+    html[data-theme="bbs"] .hero .tagline .cursor {
+        animation: none;
+    }
+}
+
+/* ---- Pixel wordmark (bitmap rendered as box-shadow cells: 59x15 grid, 276 px) ---- */
+html[data-theme="bbs"] .pixel-logo {
+    --px: clamp(3px, .95vw, 10px);
+    width: calc(var(--px) * 59);
+    height: calc(var(--px) * 15);
+    margin: 0 auto 1rem;
+    position: relative;
+    filter: drop-shadow(calc(var(--px)) calc(var(--px)) 0 var(--c-magenta));
+}
+
+html[data-theme="bbs"] .pixel-logo i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--px);
+    height: var(--px);
+    color: var(--c-lcyan);
+    box-shadow: calc(var(--px)*0) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*1) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*2) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*3) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*6) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*7) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*9) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*10) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*16) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*19) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*20) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*21) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*22) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*25) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*26) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*27) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*31) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*32) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*33) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*34) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*37) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*39) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*43) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*45) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*49) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*50) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*51) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*54) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*55) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*56) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*57) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*58) calc(var(--px)*0) 0 0 currentColor,calc(var(--px)*0) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*4) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*16) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*36) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*40) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*42) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*46) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*52) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*54) calc(var(--px)*1) 0 0 currentColor,calc(var(--px)*0) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*4) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*16) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*36) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*42) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*46) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*52) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*54) calc(var(--px)*2) 0 0 currentColor,calc(var(--px)*0) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*1) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*2) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*3) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*16) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*19) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*20) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*21) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*25) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*26) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*27) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*31) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*32) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*33) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*36) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*42) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*43) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*45) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*46) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*49) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*50) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*51) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*54) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*55) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*56) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*57) calc(var(--px)*3) 0 0 currentColor,calc(var(--px)*0) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*3) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*16) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*27) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*34) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*36) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*42) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*46) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*54) calc(var(--px)*4) 0 0 currentColor,calc(var(--px)*0) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*4) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*13) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*15) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*34) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*36) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*40) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*42) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*46) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*54) calc(var(--px)*5) 0 0 currentColor,calc(var(--px)*0) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*4) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*6) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*7) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*9) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*10) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*14) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*19) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*20) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*21) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*22) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*31) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*32) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*33) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*37) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*39) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*42) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*46) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*54) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*55) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*56) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*57) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*58) calc(var(--px)*6) 0 0 currentColor,calc(var(--px)*7) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*9) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*10) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*13) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*14) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*15) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*16) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*19) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*20) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*21) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*31) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*32) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*33) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*36) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*37) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*39) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*40) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*42) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*43) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*45) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*46) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*52) calc(var(--px)*8) 0 0 currentColor,calc(var(--px)*6) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*22) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*34) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*48) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*52) calc(var(--px)*9) 0 0 currentColor,calc(var(--px)*6) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*34) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*49) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*51) calc(var(--px)*10) 0 0 currentColor,calc(var(--px)*7) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*9) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*13) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*14) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*15) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*31) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*32) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*33) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*50) calc(var(--px)*11) 0 0 currentColor,calc(var(--px)*10) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*33) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*50) calc(var(--px)*12) 0 0 currentColor,calc(var(--px)*10) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*18) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*22) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*24) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*28) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*34) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*50) calc(var(--px)*13) 0 0 currentColor,calc(var(--px)*6) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*7) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*8) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*9) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*12) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*13) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*14) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*15) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*16) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*19) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*20) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*21) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*25) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*26) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*27) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*30) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*34) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*36) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*37) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*38) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*39) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*40) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*44) calc(var(--px)*14) 0 0 currentColor,calc(var(--px)*50) calc(var(--px)*14) 0 0 currentColor;
+}
