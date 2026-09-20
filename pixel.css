@@ -165,12 +165,14 @@ html[data-theme="bbs"] a:hover {
     background: var(--c-black);
     color: var(--c-lgray);
     font-family: var(--f-term);
-    font-size: 1.3rem;
+    font-size: clamp(.95rem, 4.1vw, 1.3rem);
     line-height: 1.35;
-    padding: 2rem 1.25rem;
+    padding: max(2rem, env(safe-area-inset-top)) 1.25rem;
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
     overflow: hidden;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #bbsBoot .ok {
@@ -206,8 +208,9 @@ html[data-theme="bbs"] .site-nav.scrolled {
 }
 
 html[data-theme="bbs"] .nav-inner {
-    max-width: 1100px;
+    max-width: min(1100px, 100%);
     padding: .5rem .9rem;
+    gap: .5rem;
 }
 
 html[data-theme="bbs"] .nav-brand {
@@ -330,6 +333,8 @@ html[data-theme="bbs"] .nav-toggle::after {
 html[data-theme="bbs"] .hero {
     padding: 6.5rem 1rem 3rem;
     min-height: 100vh;
+    /* svh keeps the welcome screen from jumping as the iOS URL bar hides */
+    min-height: 100svh;
 }
 
 html[data-theme="bbs"] .hero-content {
@@ -353,7 +358,7 @@ html[data-theme="bbs"] .ansi-art {
 html[data-theme="bbs"] .ansi-rule {
     color: var(--c-magenta);
     font-family: var(--f-term);
-    font-size: clamp(.72rem, 2.5vw, 1.1rem);
+    font-size: clamp(.55rem, 2.5vw, 1.1rem);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
@@ -437,8 +442,9 @@ html[data-theme="bbs"] .bbs-status ul {
 
 html[data-theme="bbs"] .bbs-status li {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: .5rem;
+    gap: 0 .5rem;
     padding: .05rem 0;
     border-bottom: 1px dotted var(--c-dgray);
 }
@@ -517,7 +523,7 @@ html[data-theme="bbs"] .scroll-hint::after {
    ============================================================ */
 html[data-theme="bbs"] .services {
     padding: 3rem 1rem 4rem;
-    max-width: 1100px;
+    max-width: min(1100px, 100%);
 }
 
 html[data-theme="bbs"] .section-heading h2 {
@@ -716,6 +722,10 @@ html[data-theme="bbs"] .footer-bottom {
 /* Scrolling SysOp ticker */
 html[data-theme="bbs"] .bbs-ticker {
     overflow: hidden;
+    /* The marquee text is `nowrap` and ~2600px wide. Without containment its
+       min-content width leaks into .services and blows the whole layout
+       viewport out past 1100px on a phone. */
+    contain: inline-size;
     white-space: nowrap;
     border-top: 2px solid var(--c-lcyan);
     border-bottom: 2px solid var(--c-lcyan);
@@ -791,6 +801,123 @@ html[data-theme="bbs"] .bbs-carrier {
     html[data-theme="bbs"] .bbs-menu ul,
     html[data-theme="bbs"] .bbs-menu-title {
         font-size: 1.1rem;
+    }
+
+    /* Nav row is brand + hamburger only until the menu opens; keep the
+       hamburger and the in-menu buttons at a thumb-sized tap target. */
+    html[data-theme="bbs"] .nav-toggle {
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        font-size: 1.5rem;
+    }
+
+    html[data-theme="bbs"] .nav-links a,
+    html[data-theme="bbs"] .lang-btn,
+    html[data-theme="bbs"] .theme-btn,
+    html[data-theme="bbs"] .lang-dropdown button {
+        min-height: 2.75rem;
+        display: flex;
+        align-items: center;
+        padding: .25rem .7rem;
+    }
+
+    /* The BBS menu is the only exit from the theme when the nav is collapsed,
+       so its rows need to be tappable too. */
+    html[data-theme="bbs"] .bbs-menu li {
+        padding: .35rem 0;
+    }
+
+    html[data-theme="bbs"] .bbs-menu a {
+        display: inline-block;
+        padding: .15rem 0;
+    }
+
+    /* Nothing in the BBS skin may push the page wider than the screen. */
+    html[data-theme="bbs"] .bbs-panels,
+    html[data-theme="bbs"] .bbs-menu,
+    html[data-theme="bbs"] .bbs-status,
+    html[data-theme="bbs"] .glass-card,
+    html[data-theme="bbs"] .cards-grid,
+    html[data-theme="bbs"] .footer-inner {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    html[data-theme="bbs"] .glass-card {
+        overflow-wrap: break-word;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Press Start 2P is a full-width bitmap face: at phone widths it has to
+       come down hard or single words run off the screen. */
+    html[data-theme="bbs"] .hero h1 {
+        font-size: clamp(.6rem, 3.4vw, .85rem);
+        line-height: 1.8;
+        text-shadow: 2px 2px 0 var(--c-red);
+    }
+
+    html[data-theme="bbs"] .section-heading h2 {
+        font-size: clamp(.58rem, 3.1vw, .8rem);
+        text-shadow: 2px 2px 0 var(--c-blue);
+    }
+
+    html[data-theme="bbs"] .glass-card h3 {
+        font-size: .62rem;
+        line-height: 1.8;
+    }
+
+    html[data-theme="bbs"] .nav-brand {
+        font-size: .45rem;
+    }
+
+    html[data-theme="bbs"] .nav-brand img {
+        height: 26px;
+        width: 26px;
+    }
+
+    html[data-theme="bbs"] .footer-brand {
+        font-size: .5rem;
+    }
+
+    html[data-theme="bbs"] .hero {
+        padding: 5rem .75rem 2.5rem;
+    }
+
+    html[data-theme="bbs"] .services {
+        padding: 2.5rem .75rem 3rem;
+    }
+
+    html[data-theme="bbs"] .bbs-menu,
+    html[data-theme="bbs"] .bbs-status {
+        padding: 1rem .75rem .8rem;
+    }
+
+    html[data-theme="bbs"] .glass-card {
+        padding: 1.5rem .8rem 1.1rem;
+    }
+
+    /* Stacked label/value reads better than a squeezed two-column row. */
+    html[data-theme="bbs"] .bbs-status b {
+        text-align: left;
+    }
+
+    html[data-theme="bbs"] .bbs-status ul,
+    html[data-theme="bbs"] .bbs-menu ul,
+    html[data-theme="bbs"] .glass-card p,
+    html[data-theme="bbs"] .section-heading p {
+        font-size: 1.05rem;
+    }
+
+}
+
+/* On a short phone the hero content already fills the screen, so the scroll
+   cue lands on top of the status panel and below the fold. Taller phones have
+   room for it, so only drop it when it would actually collide. */
+@media (max-width: 480px) and (max-height: 720px) {
+    html[data-theme="bbs"] .scroll-hint {
+        display: none;
     }
 }
 
